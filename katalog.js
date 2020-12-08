@@ -17,7 +17,7 @@ export class Katalog {
         host.appendChild(this.kontejner);
 
         const naslov = document.createElement("h2");
-        naslov.innerHTML = this.nazivProd + "katalog";
+        naslov.innerHTML = this.nazivProd + " katalog";
         this.kontejner.appendChild(naslov);
     }
 }

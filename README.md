@@ -7,4 +7,4 @@ Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 # Note 8.12
 - Kreiran repo, povezano sa VS Code i Git-om
 - Kreiran GitPages za hostovano
-- Kreirani osnovni fajlovi
+- Kreirani osnovni fajlovi sa pocetnim sadrzajem

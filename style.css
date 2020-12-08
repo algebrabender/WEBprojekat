@@ -1,0 +1,9 @@
+.kontejner {
+    display: flex;
+    border: 2px solid black;
+}
+
+h2 {
+    font-family: 'Courier New', Courier, monospace;
+    color: cadetblue;
+}

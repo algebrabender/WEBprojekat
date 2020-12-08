@@ -8,3 +8,10 @@ h2 {
     color: cadetblue;
     margin: 5px;
 }
+
+.forma {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 300px;
+    margin: 5px;
+}

@@ -1,7 +1,6 @@
 .kontejner {
     display: flex;
     height: 900px;
-    border: 2px solid black;
 }
 
 h2 {
@@ -12,9 +11,13 @@ h2 {
 
 .forma {
     display: flex;
+    height: 500px;
     flex-direction: column;
     flex-basis: 300px;
     margin: 5px;
+    border: 1px dotted black;
+    padding: 5px;
+    color: rgb(1, 2, 95);
 }
 
 div {
@@ -28,5 +31,6 @@ select {
 
 body {
     background-image: url("https://images4.alphacoders.com/997/997293.png");
-    background-size: cover;
+    background-size: 100%;
+    font-family: 'Courier New', Courier, monospace;
 }

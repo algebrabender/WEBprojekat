@@ -1,5 +1,6 @@
 .kontejner {
     display: flex;
+    height: 900px;
     border: 2px solid black;
 }
 
@@ -14,4 +15,18 @@ h2 {
     flex-direction: column;
     flex-basis: 300px;
     margin: 5px;
+}
+
+div {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+select {
+    margin-top: 3px;
+}
+
+body {
+    background-image: url("https://images4.alphacoders.com/997/997293.png");
+    background-size: cover;
 }

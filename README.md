@@ -9,3 +9,7 @@ Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 - Kreiran GitPages za hostovanje
 - Kreirani osnovni fajlovi
 - Kreirana jedna klasa (main one) i zapoceta njena implementacija
+
+# Note 9.12
+- Update-ovana klasa katalog
+- Dodati pojedini stilovi

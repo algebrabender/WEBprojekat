@@ -48,5 +48,67 @@ export class Katalog {
         element.className = "kolicina";
         element.type = "number";
         forma.appendChild(element);
+
+        let tipoviIgre = ["akcija", "avantura", "rpg", "simulacija", "akcija-avantura"];
+        let bojeTipova = ["red", "blue", "green", "orange", "purple"];
+
+        let radioButton = null;
+        let opcija = null;
+        let rbDiv = null;
+
+        tipoviIgre.forEach((tip, index) => {
+            rbDiv = document.createElement("div");
+            radioButton = document.createElement("input");
+            radioButton.type = "radio";
+            radioButton.name = this.nazivProd;
+            radioButton.value = tipoviIgre[index];
+
+            opcija = document.createElement("label");
+            opcija.innerHTML = tip;
+
+            rbDiv.appendChild(radioButton);
+            rbDiv.appendChild(opcija);
+            forma.appendChild(rbDiv);
+        })
+
+        labela = document.createElement("label");
+        labela.innerHTML = "Izaberite poziciju video igre u katalogu";
+        forma.appendChild(labela);
+
+        let pozicijaDiv = document.createElement("div");
+        let vrsta = document.createElement("select");
+        labela = document.createElement("label");
+        labela.innerHTML = "Vrsta(X): ";
+        pozicijaDiv.appendChild(labela);
+        pozicijaDiv.appendChild(vrsta);
+
+        let x = null;
+
+        for (let i = 0; i < this.n; i++) {
+            x = document.createElement("option");
+            x.innerHTML = i;
+            x.value = i;
+            vrsta.appendChild(x);
+        }
+
+        forma.appendChild(pozicijaDiv);
+
+        pozicijaDiv = document.createElement("div");
+        let kolona = document.createElement("select");
+        labela = document.createElement("label");
+        labela.innerHTML = "Kolona(Y): ";
+        pozicijaDiv.appendChild(labela);
+        pozicijaDiv.appendChild(kolona);
+
+        let y = null;
+
+        for (let i = 0; i < this.m; i++) {
+            y = document.createElement("option");
+            y.innerHTML = i;
+            y.value = i;
+            kolona.appendChild(y);
+        }
+
+        forma.appendChild(pozicijaDiv);
     }
 }

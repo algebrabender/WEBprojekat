@@ -1,3 +1,5 @@
+import { VideoIgra } from "./videoigra.js"
+import { Studio } from "./studio.js"
 
 export class Katalog {
     constructor (nazivProd, n, m, kapacitetPolja) {
@@ -6,9 +8,19 @@ export class Katalog {
         this.m = m;
         this.kapacitetPolja = kapacitetPolja;
         this.kontejner = null;
+        this.videoIgre = [];
+        this.studios = [];
     }
 
-    crtajKatalog(host) {
+    dodavanjeVideoIgre(igra) {
+        this.videoIgre.push(igra);
+    }
+
+    dodavanjeStudia(studio) {
+        this.studios.push(studio);
+    }
+
+    crtanjeKataloga(host) {
         if (!host)
             throw new Error ("Ne postoji roditeljski element");
     
@@ -20,10 +32,11 @@ export class Katalog {
         this.kontejner.classList.add("kontejner");
         host.appendChild(this.kontejner);      
 
-        this.crtajFormu(this.kontejner);
+        this.crtanjeForme(this.kontejner);
+        this.crtanjeVideoIgre(this.kontejner);
     }
 
-    crtajFormu(host) {
+    crtanjeForme(host) {
         const forma = document.createElement("div");
         forma.className = "forma";
         host.appendChild(forma);
@@ -110,5 +123,28 @@ export class Katalog {
         }
 
         forma.appendChild(pozicijaDiv);
+
+
+    }
+
+    crtanjeVideoIgre(host) {
+        const kontejnerIgre = document.createElement("div");
+        kontejnerIgre.className = "kontejnerIgre";
+        host.appendChild(kontejnerIgre);
+
+        let red;
+        let igra;
+
+        for (let i = 0; i < this.n; i++) {
+            red = document.createElement("div");
+            red.className = "red";
+            kontejnerIgre.appendChild(red);
+
+            for (let j = 0; j< this.m; j++) {
+                igra = new VideoIgra("The Last Of Us", "19.6.2020", 2, "", "", this.kapacitetPolja, i, j);
+                this.dodavanjeVideoIgre(igra);
+                igra.crtanjeVideoIgre(red);
+            }
+        }
     }
 }

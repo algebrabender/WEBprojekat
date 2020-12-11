@@ -14,3 +14,7 @@ Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 - Update-ovana klasa katalog
 - Dodati pojedini stilovi
 - Dodate klase VideoIgra i Studio (klasa Studio je pod znakom pitanja za sada)
+
+# Note 11.12
+- Klase VideoIgra i Studio updated
+- Update-ovana klasa katalog

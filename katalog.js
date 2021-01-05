@@ -164,7 +164,6 @@ export class Katalog {
                 alert("Igra je vec u katalogu na poziciji (" + temp.x + ", " + temp.y + ")");
             else
                 this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.value, i, j, datum, brDiskova);
-        
         }
 
     }

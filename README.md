@@ -2,7 +2,6 @@
 Projekat iz Web Programiranja
 
 Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
-//potentially will be moved to other github account
 
 # Note 8.12.2020.
 - Kreiran repo, povezano sa VS Code i Git-om
@@ -22,3 +21,11 @@ Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 # Note 5.1.2021.
 - Update-ovan style
 - Update-ovane klase Katalog i VideoIgra
+
+#TODO
+- Promeniti boje (previse jake)
+- Klasa Studio
+- Validacija svih podataka
+- CRUD - delete (i read)
+- Drugi deo projekta
+- Opis projekta

@@ -22,7 +22,7 @@ Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 - Update-ovan style
 - Update-ovane klase Katalog i VideoIgra
 
-#TODO
+# TODO
 - Promeniti boje (previse jake)
 - Klasa Studio
 - Validacija svih podataka

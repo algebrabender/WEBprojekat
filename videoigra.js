@@ -2,14 +2,13 @@
 import { Studio } from "./studio.js"
 
 export class VideoIgra {
-    constructor(naziv, datumIzdavanja, brojDiskova, tip, studio, kapacitetMax, i, j) {
+    constructor(naziv, datumIzdavanja, brojDiskova, tip, studio, i, j) {
         this.naziv = naziv;
         this.datumIzdavanja = datumIzdavanja;
         this.brojDiskova = brojDiskova;
         this.tip = tip;
-        this.kapacitet = 0;
+        this.kolicinaNaStanju = 0;
         this.studio = studio;
-        this.kapacitetMax = kapacitetMax;
         this.x = i;
         this.y = j;
         this.miniKontejner = null;
@@ -25,8 +24,21 @@ export class VideoIgra {
     crtanjeVideoIgre(host) {
         this.miniKontejner = document.createElement("div");
         this.miniKontejner.className = "videoIgra";
-        this.miniKontejner.innerHTML = "Moguce dodati: " + (this.kapacitetMax - this.kapacitet) + " igara";
+        this.miniKontejner.innerHTML = "Slobodno mesto u katalogu";
         this.miniKontejner.style.backgroundColor = this.bojaPolja();
         host.appendChild(this.miniKontejner);
+    }
+
+    updateVideoIgre(naziv, kolicina, tip, x, y, datum, brojDiskova) {
+        this.naziv = naziv;
+        this.tip = tip;
+        this.kolicinaNaStanju = kolicina;
+        this.x = x;
+        this.y = y;
+        this.datumIzdavanja = datum;
+        this.brojDiskova = brojDiskova;
+
+        this.miniKontejner.innerHTML = this.naziv + ", " + this.brojDiskova + "CD(s)\nNa stanju: " + this.kolicinaNaStanju + "\nDatum izadavanja: " + this.datumIzdavanja;
+        this.miniKontejner.style.backgroundColor = this.bojaPolja();
     }
 }

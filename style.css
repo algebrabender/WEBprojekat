@@ -1,15 +1,18 @@
-.kontejner {
+.kontejner 
+{
     display: flex;
     height: 600px;
 }
 
-h2 {
+h2 
+{
     font-family: 'Courier New', Courier, monospace;
     color: cadetblue;
     margin: 5px;
 }
 
-.forma {
+.forma 
+{
     display: flex;
     height: 500px;
     flex-direction: column;
@@ -20,7 +23,8 @@ h2 {
     color: rgb(1, 2, 95);
 }
 
-div {
+div 
+{
     margin-top: 3px;
     margin-bottom: 3px;
 }
@@ -29,8 +33,40 @@ select {
     margin-top: 3px;
 }
 
-body {
+body 
+{
     background-image: url("https://images4.alphacoders.com/997/997293.png");
     background-size: 100%;
     font-family: 'Courier New', Courier, monospace;
+}
+
+.kontejnerIgre
+{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 500px;
+    height: 520px;
+}
+
+.vrsta
+{
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.videoIgra
+{
+    border: 1px dotted black;
+    flex: 1 1 20px;
+    margin: 5px;
+    text-align: center;
+}
+
+.button
+{
+    width: 200px;
+    height: 24px;
+    font-style: italic;
 }

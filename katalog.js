@@ -2,11 +2,10 @@ import { VideoIgra } from "./videoigra.js"
 import { Studio } from "./studio.js"
 
 export class Katalog {
-    constructor (nazivProd, n, m, kapacitetPolja) {
+    constructor (nazivProd, n, m) {
         this.nazivProd = nazivProd;
         this.n = n;
         this.m = m;
-        this.kapacitetPolja = kapacitetPolja;
         this.kontejner = null;
         this.videoIgre = [];
         this.studios = [];
@@ -42,7 +41,7 @@ export class Katalog {
         host.appendChild(forma);
 
         var labela = document.createElement("h4");
-        labela.innerHTML = "Unos video igre u katalog"; 
+        labela.innerHTML = "Dodavanje video igre u katalog"; 
         forma.appendChild(labela);
 
         labela = document.createElement("label");
@@ -54,7 +53,16 @@ export class Katalog {
         forma.appendChild(element);
 
         labela = document.createElement("label");
-        labela.innerHTML = "Kolicina: ";
+        labela.innerHTML = "Broj diskova: ";
+        forma.appendChild(labela);
+
+        element = document.createElement("input");
+        element.className = "brojDiskova";
+        element.type = "number";
+        forma.appendChild(element);
+
+        labela = document.createElement("label");
+        labela.innerHTML = "Kolicina na stanju: ";
         forma.appendChild(labela);
 
         element = document.createElement("input");
@@ -74,7 +82,7 @@ export class Katalog {
             radioButton = document.createElement("input");
             radioButton.type = "radio";
             radioButton.name = this.nazivProd;
-            radioButton.value = tipoviIgre[index];
+            radioButton.value = bojeTipova[index];
 
             opcija = document.createElement("label");
             opcija.innerHTML = tip;
@@ -83,6 +91,15 @@ export class Katalog {
             rbDiv.appendChild(opcija);
             forma.appendChild(rbDiv);
         })
+
+        labela = document.createElement("label");
+        labela.innerHTML = "Datum izdavanja: ";
+        forma.appendChild(labela);
+
+        element = document.createElement("input");
+        element.className = "datum";
+        element.type = "date";
+        forma.appendChild(element);
 
         labela = document.createElement("label");
         labela.innerHTML = "Izaberite poziciju video igre u katalogu";
@@ -99,7 +116,7 @@ export class Katalog {
 
         for (let i = 0; i < this.n; i++) {
             x = document.createElement("option");
-            x.innerHTML = i;
+            x.innerHTML = i+1;
             x.value = i;
             vrsta.appendChild(x);
         }
@@ -115,15 +132,40 @@ export class Katalog {
 
         let y = null;
 
-        for (let i = 0; i < this.m; i++) {
+        for (let j = 0; j < this.m; j++) {
             y = document.createElement("option");
-            y.innerHTML = i;
-            y.value = i;
+            y.innerHTML = j+1;
+            y.value = j;
             kolona.appendChild(y);
         }
 
         forma.appendChild(pozicijaDiv);
 
+        const button = document.createElement("button");
+        button.className = "button";
+        button.innerHTML = "Dodaj video igru u katalog";
+        forma.appendChild(button);
+
+        button.onclick = (ev) => {
+            const naziv = this.kontejner.querySelector(".naziv").value;
+            const brDiskova = this.kontejner.querySelector(".brojDiskova").value;
+            const kolicina = parseInt(this.kontejner.querySelector(".kolicina").value);
+            const datum = this.kontejner.querySelector(".datum").value;
+            const tip = this.kontejner.querySelector(`input[name='${this.nazivProd}']:checked`);
+
+            let i = parseInt(vrsta.value);
+            let j = parseInt(kolona.value);
+            console.log(i);
+            console.log(j);
+            console.log(i * this.m + j);
+
+            let temp = this.videoIgre.find(igra => igra.naziv == naziv && igra.tip == tip && (igra.x != i || igra.y != j));
+            if(temp)
+                alert("Igra je vec u katalogu na poziciji (" + temp.x + ", " + temp.y + ")");
+            else
+                this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.value, i, j, datum, brDiskova);
+        
+        }
 
     }
 
@@ -132,18 +174,18 @@ export class Katalog {
         kontejnerIgre.className = "kontejnerIgre";
         host.appendChild(kontejnerIgre);
 
-        let red;
+        let vrsta;
         let igra;
 
         for (let i = 0; i < this.n; i++) {
-            red = document.createElement("div");
-            red.className = "red";
-            kontejnerIgre.appendChild(red);
+            vrsta = document.createElement("div");
+            vrsta.className = "vrsta";
+            kontejnerIgre.appendChild(vrsta);
 
             for (let j = 0; j< this.m; j++) {
-                igra = new VideoIgra("The Last Of Us", "19.6.2020", 2, "", "", this.kapacitetPolja, i, j);
+                igra = new VideoIgra("", "", 0, "", "", i, j);
                 this.dodavanjeVideoIgre(igra);
-                igra.crtanjeVideoIgre(red);
+                igra.crtanjeVideoIgre(vrsta);
             }
         }
     }

@@ -71,7 +71,7 @@ export class Katalog {
         forma.appendChild(element);
 
         let tipoviIgre = ["akcija", "avantura", "rpg", "simulacija", "akcija-avantura"];
-        let bojeTipova = ["red", "blue", "green", "orange", "purple"];
+        let bojeTipova = ["#96bb7c", "#9de5ff", "#f4ebc1", "#e27802", "#f05454"];
 
         let radioButton = null;
         let opcija = null;

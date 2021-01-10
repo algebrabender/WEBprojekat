@@ -7,7 +7,7 @@
 h2 
 {
     font-family: 'Courier New', Courier, monospace;
-    color: cadetblue;
+    color: #98acf8;
     margin: 5px;
 }
 
@@ -20,7 +20,8 @@ h2
     margin: 5px;
     border: 1px dotted black;
     padding: 5px;
-    color: rgb(1, 2, 95);
+    color: #0d335d;
+    background-color: rgba(250,	235, 215, 0.5);
 }
 
 div 
@@ -47,6 +48,7 @@ body
     flex-grow: 1;
     flex-basis: 500px;
     height: 520px;
+    font-size: 24px;
 }
 
 .vrsta

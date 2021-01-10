@@ -16,7 +16,7 @@ export class VideoIgra {
 
     bojaPolja() {
         if (!this.tip)
-            return "coral";
+            return "#726a95";
         else
             return this.tip;
     }
@@ -38,7 +38,7 @@ export class VideoIgra {
         this.datumIzdavanja = datum;
         this.brojDiskova = brojDiskova;
 
-        this.miniKontejner.innerHTML = this.naziv + ", " + this.brojDiskova + "CD(s)\nNa stanju: " + this.kolicinaNaStanju + "\nDatum izadavanja: " + this.datumIzdavanja;
+        this.miniKontejner.innerHTML = this.naziv + ", " + this.brojDiskova + "CD(s), Na stanju: " + this.kolicinaNaStanju + "\nDatum izadavanja: " + this.datumIzdavanja;
         this.miniKontejner.style.backgroundColor = this.bojaPolja();
     }
 }

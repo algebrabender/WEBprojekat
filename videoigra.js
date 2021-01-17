@@ -29,7 +29,7 @@ export class VideoIgra {
         host.appendChild(this.miniKontejner);
     }
 
-    updateVideoIgre(naziv, kolicina, tip, x, y, datum, brojDiskova) {
+    updateVideoIgre(naziv, kolicina, tip, x, y, datum, brojDiskova, stud) {
         this.naziv = naziv;
         this.tip = tip;
         this.kolicinaNaStanju = kolicina;
@@ -37,8 +37,14 @@ export class VideoIgra {
         this.y = y;
         this.datumIzdavanja = datum;
         this.brojDiskova = brojDiskova;
+        this.studio = stud;
 
-        this.miniKontejner.innerHTML = this.naziv + ", " + this.brojDiskova + "CD(s), Na stanju: " + this.kolicinaNaStanju + "\nDatum izadavanja: " + this.datumIzdavanja;
+        this.studio.updateStudio();
+
+        this.miniKontejner.innerHTML = this.naziv + ", by " + this.studio.ime
+        + "<br />"  + this.brojDiskova 
+        + " CD(s) <br />Na stanju: " + this.kolicinaNaStanju 
+        + "<br />Datum izadavanja: " + this.datumIzdavanja;
         this.miniKontejner.style.backgroundColor = this.bojaPolja();
     }
 }

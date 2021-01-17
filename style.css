@@ -1,7 +1,7 @@
 .kontejner 
 {
     display: flex;
-    height: 600px;
+    height: 650px;
 }
 
 h2 
@@ -14,7 +14,7 @@ h2
 .forma 
 {
     display: flex;
-    height: 500px;
+    height: 600px;
     flex-direction: column;
     flex-basis: 300px;
     margin: 5px;
@@ -47,7 +47,7 @@ body
     flex-direction: column;
     flex-grow: 1;
     flex-basis: 500px;
-    height: 520px;
+    height: 620px;
     font-size: 24px;
 }
 
@@ -71,4 +71,5 @@ body
     width: 200px;
     height: 24px;
     font-style: italic;
+    margin: 5px;
 }

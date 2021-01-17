@@ -1,5 +1,5 @@
 # WEB projekat
-Projekat iz predmeta Web Programiranje
+Projekat iz predmeta Web Programiranje\n
 Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 
 # Note 8.12.2020.

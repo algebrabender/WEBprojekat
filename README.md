@@ -1,4 +1,4 @@
-# WEBprojekat
+# WEB projekat
 Projekat iz Web Programiranja
 
 Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
@@ -22,7 +22,7 @@ Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 - Update-ovan style
 - Update-ovane klase Katalog i VideoIgra
 
-#Note 17.1.2021.
+# Note 17.1.2021.
 - Dodato izbor studija (podaci iz baze ce biti)
 - Dodati buttons za ostale crud operacije (bez read), samo attached na formi
 

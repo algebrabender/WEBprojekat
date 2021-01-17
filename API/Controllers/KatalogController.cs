@@ -11,9 +11,9 @@ namespace API.Controllers
     [Route("[controller]")]
     public class KatalogController : ControllerBase
     {
-        public ZooController()
+        public KatalogController()
         {
-
+            
         }
     }
 }

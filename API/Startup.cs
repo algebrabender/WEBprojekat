@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API
 {
@@ -31,6 +33,10 @@ namespace API
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+            });
+            services.AddDbContext<GameShopContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("GameShopCS"));
             });
         }
 

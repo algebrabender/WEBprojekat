@@ -3,7 +3,7 @@ import { Studio } from "./studio.js"
 
 export class Katalog {
     constructor (nazivProd, n, m) {
-        this.nazivProd = nazivProd;
+        this.gameShop = nazivProd;
         this.n = n;
         this.m = m;
         this.kontejner = null;

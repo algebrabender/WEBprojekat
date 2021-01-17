@@ -1,6 +1,5 @@
 # WEB projekat
-Projekat iz Web Programiranja
-
+Projekat iz predmeta Web Programiranje
 Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 
 # Note 8.12.2020.
@@ -29,5 +28,5 @@ Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 # TODO
 - Validacija svih podataka
 - CRUD - delete (i read)
-- Drugi deo projekta
 - Opis projekta
+- Zahtevi vezani za serverski deo

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace API.Models
 {
@@ -34,8 +35,9 @@ namespace API.Models
         [Column("Y")]
         public int Y { get; set; }  
 
-        public virtual List<Studio> Studios {get; set; }
+        public Studio Studio { get; set; }
 
+        [JsonIgnore]
         public Katalog Katalog { get; set; }
     }
 }

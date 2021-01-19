@@ -28,7 +28,17 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors(options => {
+                options.AddPolicy("CORS", builder =>
+                {
+                    builder.AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .WithOrigins(new string[]
+                            {
+                                "http://127.0.0.1:5500"
+                            });
+                });
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -53,6 +63,8 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("CORS");
 
             app.UseAuthorization();
 

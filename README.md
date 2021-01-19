@@ -30,6 +30,7 @@ Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 - Implementirane ostale CRUD operacije
 - Implementirana validacija svih podatak u js-u 
 - Male izmene u stilu
+- Dodate pojedine metode za podrsku CRUD operacijama
 
 # TODO
 - Opis projekta

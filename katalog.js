@@ -241,38 +241,43 @@ export class Katalog {
                 let i = parseInt(vrsta.value);
                 let j = parseInt(kolona.value);
 
-                let completlySame = this.videoIgre.find(igra => igra.naziv == naziv && (igra.x != i || igra.y != j));
-                let differentType = this.videoIgre.find(igra => igra.naziv == naziv && igra.tip != tip.value && igra.x == i && igra.y == j);
-                let differentQuntity = this.videoIgre.find(igra => igra.naziv == naziv && igra.kolicina != kolicina && igra.x == i && igra.y == j);
+                let completlySame = this.videoIgre.find(igra => igra.naziv == naziv && igra.kolicinaNaStanju == kolicina && igra.x == i && igra.y == j);
+                let differentPosition = this.videoIgre.find(igra => igra.naziv == naziv && (igra.x != i || igra.y != j));
+                let differentQuantity = this.videoIgre.find(igra => igra.naziv == naziv && igra.kolicinaNaStanju != kolicina && igra.x == i && igra.y == j);
 
-                if(completlySame)
-                    alert("Igra je vec u katalogu na poziciji (" + (completlySame.x + 1) + ", " + (completlySame.y + 1) + ")");
-                else if (differentType)
+                if (completlySame)
                 {
-                    alert("Menjate tip igre!!!");
-                    this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.value, i, j, datum, brDiskova, studio);
+                    alert("Ukoliko zelite da izmenite igru, izbrisite igru iz kataloga i dodajte ispocetka.");
                 }
-                else if (differentQuntity)
+                else if(differentPosition)
                 {
-                    alert("Menjate koliko igara je na stanju!!!");
-                    this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.value, i, j, datum, brDiskova, studio);
+                    alert("Igra je vec u katalogu na poziciji (" + (differentPosition.x + 1) + ", " + (differentPosition.y + 1) + ")");
+                }
+                else if (differentQuantity)
+                {
+                    alert("Ukoliko zelite da izmenite kolicinu na stanju, kliknite na \"Azuriraj kolicinu\" dugme!\nZa ostale izmene izbrisite igru iz kataloga i dodajte ispocetka.");
                 }
                 else  
                 {
                     this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.value, i, j, datum, brDiskova, studio);
-                    studio.updateStudio();
+                    studio.updateStudio(1);
                 }
             }
         }
 
         const button1 = document.createElement("button");
         button1.className = "button";
-        button1.innerHTML = "Azuriraj video igru";
+        button1.innerHTML = "Azuriraj kolicinu";
         forma.appendChild(button1);
 
         //U(pdate) za video igru
         button1.onclick = (ev) => {
+            const kolicina = parseInt(this.kontejner.querySelector(".kolicina").value);
 
+            let i = parseInt(vrsta.value);
+            let j = parseInt(kolona.value);
+
+            this.videoIgre[i * this.m + j].updateKolicine(kolicina);
         }
 
         const button2 = document.createElement("button");
@@ -282,7 +287,11 @@ export class Katalog {
 
         //D(elete) za video igru
         button2.onclick = (ev) => {
+            let i = parseInt(vrsta.value);
+            let j = parseInt(kolona.value);
 
+            this.videoIgre[i * this.m + j].studio.updateStudio(0);
+            this.videoIgre[i * this.m + j].updateVideoIgre("", "", "", i, j, "", "", null);     
         }
 
     }
@@ -301,7 +310,7 @@ export class Katalog {
             kontejnerIgre.appendChild(vrsta);
 
             for (let j = 0; j< this.m; j++) {
-                igra = new VideoIgra("", "", 0, "", "", i, j);
+                igra = new VideoIgra("", "", null, "", "", i, j);
                 this.dodavanjeVideoIgre(igra);
                 igra.crtanjeVideoIgre(vrsta);
             }

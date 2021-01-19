@@ -29,6 +29,13 @@ export class VideoIgra {
         host.appendChild(this.miniKontejner);
     }
 
+    updatePolja() {
+        this.miniKontejner.innerHTML = this.naziv + ", by " + this.studio.ime
+        + "<br />"  + this.brojDiskova 
+        + " CD(s) <br />Na stanju: " + this.kolicinaNaStanju 
+        + "<br />Datum izadavanja: " + this.datumIzdavanja;
+    }
+
     updateVideoIgre(naziv, kolicina, tip, x, y, datum, brojDiskova, stud) {
         this.naziv = naziv;
         this.tip = tip;
@@ -39,10 +46,21 @@ export class VideoIgra {
         this.brojDiskova = brojDiskova;
         this.studio = stud;
 
-        this.miniKontejner.innerHTML = this.naziv + ", by " + this.studio.ime
-        + "<br />"  + this.brojDiskova 
-        + " CD(s) <br />Na stanju: " + this.kolicinaNaStanju 
-        + "<br />Datum izadavanja: " + this.datumIzdavanja;
+        if (naziv == "")
+        {
+            this.miniKontejner.innerHTML = "Slobodno mesto u katalogu";
+        }
+        else
+        {
+            this.updatePolja();
+        }
+
         this.miniKontejner.style.backgroundColor = this.bojaPolja();
+    }
+
+    updateKolicine(novaKolicina) {
+        this.kolicinaNaStanju = novaKolicina;
+
+        this.updatePolja();
     }
 }

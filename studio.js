@@ -7,8 +7,11 @@ export class Studio {
         this.brojIgaraUKatalogu = 0;
     }
 
-    updateStudio()
+    updateStudio(plusminus)
     {
-        this.brojIgaraUKatalogu++;
+        if(plusminus == 1)
+            this.brojIgaraUKatalogu++;
+        else
+            this.brojIgaraUKatalogu--;
     }
 }

@@ -33,4 +33,6 @@ Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 
 # TODO
 - Opis projekta
-- Zahtevi vezani za serverski deo
+- Smestanje svih podataka u bazu (sa atributima za validaciju?)
+- SQL skripta za studios i ubaciti ih u bazu
+- Metode za podrsku CRUD operacijama

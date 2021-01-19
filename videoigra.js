@@ -39,8 +39,6 @@ export class VideoIgra {
         this.brojDiskova = brojDiskova;
         this.studio = stud;
 
-        this.studio.updateStudio();
-
         this.miniKontejner.innerHTML = this.naziv + ", by " + this.studio.ime
         + "<br />"  + this.brojDiskova 
         + " CD(s) <br />Na stanju: " + this.kolicinaNaStanju 

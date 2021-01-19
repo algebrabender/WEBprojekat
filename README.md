@@ -24,9 +24,13 @@ Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 # Note 17.1.2021.
 - Dodato izbor studija (podaci iz baze ce biti)
 - Dodati buttons za ostale crud operacije (bez read), samo attached na formi
+- Kreiran WebAPI i Modeli
+
+# Node 19.1.2021.
+- Implementirane ostale CRUD operacije
+- Implementirana validacija svih podatak u js-u 
+- Male izmene u stilu
 
 # TODO
-- Validacija svih podataka
-- CRUD - delete (i read)
 - Opis projekta
 - Zahtevi vezani za serverski deo

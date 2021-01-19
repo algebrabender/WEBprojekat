@@ -24,7 +24,7 @@ export class Katalog {
             throw new Error ("Ne postoji roditeljski element");
     
         const naslov = document.createElement("h2");
-        naslov.innerHTML = this.nazivProd + " katalog";
+        naslov.innerHTML = this.gameShop + " katalog";
         host.appendChild(naslov);
 
         this.kontejner = document.createElement("div");
@@ -82,7 +82,7 @@ export class Katalog {
             rbDiv.className = "radioButtons";
             radioButton = document.createElement("input");
             radioButton.type = "radio";
-            radioButton.name = this.nazivProd;
+            radioButton.name = this.gameShop;
             radioButton.value = bojeTipova[index];
 
             opcija = document.createElement("label");
@@ -110,6 +110,11 @@ export class Katalog {
 
         let s = null;
 
+        s = document.createElement("option");
+        s.innerHTML = ""
+        s.value = null;
+        studioSelect.appendChild(s);
+
         for (let i = 0; i < this.studios.length; i++) {
             s = document.createElement("option");
             s.innerHTML = this.studios[i].ime;
@@ -118,6 +123,11 @@ export class Katalog {
         }
 
         forma.appendChild(studioDiv);
+
+        const buttonStudio = document.createElement("button");
+        buttonStudio.className = "button";
+        buttonStudio.innerHTML = "Prikazi informacije o studiu";
+        forma.appendChild(buttonStudio);
 
         labela = document.createElement("label");
         labela.innerHTML = "Datum izdavanja: ";
@@ -173,35 +183,86 @@ export class Katalog {
         button.innerHTML = "Dodaj video igru u katalog";
         forma.appendChild(button);
 
+        //R(ead) za studio
+        buttonStudio.onclick = (ev) => {
+            const studioSelected = studioSelect.value;
+            let studio = this.studios.find(st => st.ime == studioSelected);
+
+            if (studio == null)
+            {
+                alert("Nije izabran studio!");
+            }
+            else
+            {
+                let temp = "Studio: " + `${studio.ime}` + "\nSediste: " + `${studio.sediste}`
+                         + "\nOsnovan: " + `${studio.godinaOsnivanja}` + "\nBroj izdatih igara: "+ `${studio.brojIgara}` 
+                         + "\nTrenutni broj igara u katalogu: " + `${studio.brojIgaraUKatalogu}`;
+                alert(temp);
+            }
+        }
+
+        //C(reate) za video igru
         button.onclick = (ev) => {
             const naziv = this.kontejner.querySelector(".naziv").value;
-            const brDiskova = this.kontejner.querySelector(".brojDiskova").value;
+            const brDiskova = parseInt(this.kontejner.querySelector(".brojDiskova").value);
             const kolicina = parseInt(this.kontejner.querySelector(".kolicina").value);
-            const studioChecked = studioSelect.value;
             const datum = this.kontejner.querySelector(".datum").value;
-            const tip = this.kontejner.querySelector(`input[name='${this.nazivProd}']:checked`);
+            const tip = this.kontejner.querySelector(`input[name='${this.gameShop}']:checked`);
+            const studioSelected = studioSelect.value;
+            let studio = this.studios.find(st => st.ime == studioSelected);
 
-            let i = parseInt(vrsta.value);
-            let j = parseInt(kolona.value);
-
-            let completlySame = this.videoIgre.find(igra => igra.naziv == naziv && (igra.x != i || igra.y != j));
-            let differentType = this.videoIgre.find(igra => igra.naziv == naziv && igra.tip != tip.value && igra.x == i && igra.y == j);
-
-            let studio = this.studios.find(st => st.ime == studioChecked);
-
-            console.log(studio);
-
-            if(completlySame)
-                alert("Igra je vec u katalogu na poziciji (" + (completlySame.x + 1) + ", " + (completlySame.y + 1) + ")");
-
-            else if (differentType)
+            //validacija
+            if (naziv == "")
             {
-                alert("Menjate tip igre!!!");
-                this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.value, i, j, datum, brDiskova, studio);
+                alert("Nije unet naziv!");
             }
+            else if (isNaN(brDiskova))
+            {
+                alert("Nije unet broj diskova!");
+            }
+            else if (isNaN(kolicina))
+            {
+                alert("Nije uneta kolicina!");
+            }
+            else if (tip == null)
+            {
+                alert("Nije izabran tip!");
+            }
+            else if (studio == null)
+            {
+                alert("Nije izabran studio!");
+            }
+            else if (datum == "")
+            {
+                alert("Nije izabran datum!");
+            }
+            else 
+            {
+                let i = parseInt(vrsta.value);
+                let j = parseInt(kolona.value);
 
-            else  
-                this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.value, i, j, datum, brDiskova, studio);
+                let completlySame = this.videoIgre.find(igra => igra.naziv == naziv && (igra.x != i || igra.y != j));
+                let differentType = this.videoIgre.find(igra => igra.naziv == naziv && igra.tip != tip.value && igra.x == i && igra.y == j);
+                let differentQuntity = this.videoIgre.find(igra => igra.naziv == naziv && igra.kolicina != kolicina && igra.x == i && igra.y == j);
+
+                if(completlySame)
+                    alert("Igra je vec u katalogu na poziciji (" + (completlySame.x + 1) + ", " + (completlySame.y + 1) + ")");
+                else if (differentType)
+                {
+                    alert("Menjate tip igre!!!");
+                    this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.value, i, j, datum, brDiskova, studio);
+                }
+                else if (differentQuntity)
+                {
+                    alert("Menjate koliko igara je na stanju!!!");
+                    this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.value, i, j, datum, brDiskova, studio);
+                }
+                else  
+                {
+                    this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.value, i, j, datum, brDiskova, studio);
+                    studio.updateStudio();
+                }
+            }
         }
 
         const button1 = document.createElement("button");
@@ -209,10 +270,20 @@ export class Katalog {
         button1.innerHTML = "Azuriraj video igru";
         forma.appendChild(button1);
 
+        //U(pdate) za video igru
+        button1.onclick = (ev) => {
+
+        }
+
         const button2 = document.createElement("button");
         button2.className = "button";
         button2.innerHTML = "Izbrisi video igru iz kataloga";
         forma.appendChild(button2);
+
+        //D(elete) za video igru
+        button2.onclick = (ev) => {
+
+        }
 
     }
 

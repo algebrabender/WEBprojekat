@@ -41,3 +41,4 @@ Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 # TODO
 - Opis projekta
 - Dodavanje drugog kataloga (potencijalno)
+- Posle click on button da se "ociste" inputi (potencijalno)

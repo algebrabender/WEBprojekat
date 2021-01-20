@@ -1,5 +1,5 @@
 # WEB projekat
-Projekat iz predmeta Web Programiranje
+Projekat iz predmeta Web Programiranje.
 Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 
 # Note 8.12.2020.
@@ -20,6 +20,9 @@ Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 # Note 5.1.2021.
 - Update-ovan style
 - Update-ovane klase Katalog i VideoIgra
+
+# Note 5.1.2021. - 17.1.2021.
+- Sitne izmene
 
 # Note 17.1.2021.
 - Dodato izbor studija (podaci iz baze ce biti)

@@ -33,9 +33,10 @@ Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 - Dodate pojedine metode za podrsku CRUD operacijama
 
 # Note 20.1.2021.
-- Implementirane metode za podrsku CRUD operacijama (bice)
+- Implementirane metode za podrsku CRUD operacijama
 - Dodati atributi za validaciju
 - Kreirana SQL skriptna za studios i podaci ubaceni u bazu
+- Izmenjeni katalog.js i main.js sa pozivima odgovarajucih fetch-ova
 
 # TODO
 - Opis projekta

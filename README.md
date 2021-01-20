@@ -39,5 +39,4 @@ Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 
 # TODO
 - Opis projekta
-- Metode za podrsku CRUD operacijama
-- Promeniti DateTime za datum samo na godinu
+- Dodavanje drugog kataloga (potencijalno)

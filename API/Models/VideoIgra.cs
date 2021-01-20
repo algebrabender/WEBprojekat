@@ -17,6 +17,7 @@ namespace API.Models
         public string Naziv { get; set; }
         
         [Column("Datum")]
+        [DataType(DataType.Date)]
         public DateTime DatumIzdavanja { get; set; }
         
         [Column("BrojDiskova")]
@@ -35,7 +36,9 @@ namespace API.Models
         [Column("Y")]
         public int Y { get; set; }  
 
-        public Studio Studio { get; set; }
+       //[ForeignKey]
+        [Column("StudioID")]
+        public int StudioID { get; set; }
 
         [JsonIgnore]
         public Katalog Katalog { get; set; }

@@ -23,6 +23,6 @@ namespace API.Models
         
         public virtual List<VideoIgra> VideoIgre { get; set; }
 
-        //public virtual List<Studio> Studios {get; set; }
+        //public virtual List<Studio> Studios { get; set; }
     }
 }

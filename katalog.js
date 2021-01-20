@@ -130,10 +130,10 @@ export class Katalog {
 
         //R(ead) za studio
         buttonStudio.onclick = (ev) => {
-            const studioSelected = studioSelect.value;
+            /*const studioSelected = studioSelect.value;
             let studio = this.studios.find(st => st.ime == studioSelected);
 
-            /*if (studio == null)
+            if (studio == null)
             {
                 alert("Nije izabran studio!");
             }
@@ -255,29 +255,9 @@ export class Katalog {
             {
                 let i = parseInt(vrsta.value);
                 let j = parseInt(kolona.value);
+                console.log(tip.innerHTML);
 
-                /*let completlySame = this.videoIgre.find(igra => igra.naziv == naziv && igra.kolicinaNaStanju == kolicina && igra.x == i && igra.y == j);
-                let differentPosition = this.videoIgre.find(igra => igra.naziv == naziv && (igra.x != i || igra.y != j));
-                let differentQuantity = this.videoIgre.find(igra => igra.naziv == naziv && igra.kolicinaNaStanju != kolicina && igra.x == i && igra.y == j);
-
-                if (completlySame)
-                {
-                    alert("Ukoliko zelite da izmenite igru, izbrisite igru iz kataloga i dodajte ispocetka.");
-                }
-                else if(differentPosition)
-                {
-                    alert("Igra je vec u katalogu na poziciji (" + (differentPosition.x + 1) + ", " + (differentPosition.y + 1) + ")");
-                }
-                else if (differentQuantity)
-                {
-                    alert("Ukoliko zelite da izmenite kolicinu na stanju, kliknite na \"Azuriraj kolicinu\" dugme!\nZa ostale izmene izbrisite igru iz kataloga i dodajte ispocetka.");
-                }
-                else  
-                {
-                    this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.value, i, j, datum, brDiskova, studio);
-                    studio.updateStudio(1);
-                }*/
-                fetch("https://localhost:5001/GameShop/DodavanjeVideoIgre/" + this.id + "/" + studio.id, {
+                fetch("https://localhost:5001/GameShop/DodavanjeVideoIgre/" + this.id, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -286,14 +266,15 @@ export class Katalog {
                         "naziv": naziv,
                         "datumIzdavanja": datum,
                         "brojDiskova": brDiskova,
-                        "tip": tip.innerHTML,
+                        "tip": tip.value,
                         "kolicinaNaStanju": kolicina,
                         "x": i,
-                        "y": j
+                        "y": j,
+                        "studioID": studio.id
                     })
                 }).then(p => {
                     if (p.ok) {
-                        this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.innerHTML, tip.value, i, j, datum, brDiskova, studio);
+                        this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.value, i, j, datum, brDiskova, studio);
                         studio.updateStudio(1);
                     }
                     else if (p.status == 400) {
@@ -328,7 +309,26 @@ export class Katalog {
             let i = parseInt(vrsta.value);
             let j = parseInt(kolona.value);
 
-            this.videoIgre[i * this.m + j].updateKolicine(kolicina);
+            fetch("https://localhost:5001/GameShop/UpdateKolicine", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify ({
+                    "kolicinaNaStanju": kolicina,
+                    "x": i,
+                    "y": j
+                })
+            }).then(p => {
+                if (p.ok)
+                {
+                    this.videoIgre[i * this.m + j].updateKolicine(kolicina);
+                }
+                else
+                {
+                    alert("Doslo je do greske priliko azuriranja kolicine");
+                }
+            });
         }
 
         const button2 = document.createElement("button");
@@ -341,8 +341,33 @@ export class Katalog {
             let i = parseInt(vrsta.value);
             let j = parseInt(kolona.value);
 
-            this.videoIgre[i * this.m + j].studio.updateStudio(0);
-            this.videoIgre[i * this.m + j].updateVideoIgre("", "", "", i, j, "", "", null);     
+            let temp = this.videoIgre.find(igra => igra.x == i && igra.y == j);
+            console.log(temp);
+            fetch("https://localhost:5001/GameShop/BrisanjeVideoIgre", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify ({
+                    "x": i,
+                    "y": j,
+                    "studioID": temp.studio.id
+                })
+            }).then(p => {
+                if (p.ok)
+                {
+                    this.videoIgre[i * this.m + j].studio.updateStudio(0);
+                    this.videoIgre[i * this.m + j].updateVideoIgre("", 0, "", i, j, "", "", null);  
+                }
+                else if (p.status == 406)
+                {
+                    alert("Neispravna pozicija igre!")
+                }
+                else
+                {
+                    alert("Doslo je do greske prilikom brisanja");
+                }
+            });   
         }
 
     }
@@ -368,3 +393,25 @@ export class Katalog {
         }
     }
 }
+
+                /*let completlySame = this.videoIgre.find(igra => igra.naziv == naziv && igra.kolicinaNaStanju == kolicina && igra.x == i && igra.y == j);
+                let differentPosition = this.videoIgre.find(igra => igra.naziv == naziv && (igra.x != i || igra.y != j));
+                let differentQuantity = this.videoIgre.find(igra => igra.naziv == naziv && igra.kolicinaNaStanju != kolicina && igra.x == i && igra.y == j);
+
+                if (completlySame)
+                {
+                    alert("Ukoliko zelite da izmenite igru, izbrisite igru iz kataloga i dodajte ispocetka.");
+                }
+                else if(differentPosition)
+                {
+                    alert("Igra je vec u katalogu na poziciji (" + (differentPosition.x + 1) + ", " + (differentPosition.y + 1) + ")");
+                }
+                else if (differentQuantity)
+                {
+                    alert("Ukoliko zelite da izmenite kolicinu na stanju, kliknite na \"Azuriraj kolicinu\" dugme!\nZa ostale izmene izbrisite igru iz kataloga i dodajte ispocetka.");
+                }
+                else  
+                {
+                    this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.value, i, j, datum, brDiskova, studio);
+                    studio.updateStudio(1);
+                }*/

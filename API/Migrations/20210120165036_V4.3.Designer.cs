@@ -4,14 +4,16 @@ using API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(GameShopContext))]
-    partial class GameShopContextModelSnapshot : ModelSnapshot
+    [Migration("20210120165036_V4.3")]
+    partial class V43
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,6 +91,10 @@ namespace API.Migrations
                         .HasColumnName("ID")
                         .UseIdentityColumn();
 
+                    b.Property<string>("Boja")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Boja");
+
                     b.Property<int>("BrojDiskova")
                         .HasColumnType("int")
                         .HasColumnName("BrojDiskova");
@@ -109,9 +115,8 @@ namespace API.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("Naziv");
 
-                    b.Property<int>("StudioID")
-                        .HasColumnType("int")
-                        .HasColumnName("StudioID");
+                    b.Property<int?>("StudioID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Tip")
                         .HasMaxLength(255)
@@ -130,6 +135,8 @@ namespace API.Migrations
 
                     b.HasIndex("KatalogID");
 
+                    b.HasIndex("StudioID");
+
                     b.ToTable("VideoIgre");
                 });
 
@@ -139,7 +146,13 @@ namespace API.Migrations
                         .WithMany("VideoIgre")
                         .HasForeignKey("KatalogID");
 
+                    b.HasOne("API.Models.Studio", "Studio")
+                        .WithMany()
+                        .HasForeignKey("StudioID");
+
                     b.Navigation("Katalog");
+
+                    b.Navigation("Studio");
                 });
 
             modelBuilder.Entity("API.Models.Katalog", b =>

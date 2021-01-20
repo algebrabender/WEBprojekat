@@ -19,6 +19,7 @@ namespace API.Controllers
             Context = context;
         }
 
+        //R(ead) za katalog
         [Route("PreuzimanjeKataloga")]
         [HttpGet]
         public async Task<List<Katalog>> PreuzmanjeKataloga()
@@ -26,22 +27,24 @@ namespace API.Controllers
             return await Context.Katalozi.Include(p => p.VideoIgre).ToListAsync();
         }
 
-        [Route("UpisivanjeKataloga")]
+        //C(reate) za katalog
+        [Route("DodavanjeKataloga")]
         [HttpPost]
-        public async Task UpisivanjeKataloga([FromBody] Katalog katalog)
+        public async Task DodavanjeKataloga([FromBody] Katalog katalog)
         {
             Context.Katalozi.Add(katalog);
             await Context.SaveChangesAsync();
         }
 
-        [Route("DodavanjeVideoIgre/{idKataloga}/{idStudia}")]
+        //C(reate) za video igru
+        [Route("DodavanjeVideoIgre/{idKataloga}")]
         [HttpPost]
-        public async Task<IActionResult> UpisivanjeVideoIgre(int idKataloga, int idStudia, [FromBody] VideoIgra igra)
+        public async Task<IActionResult> UpisivanjeVideoIgre(int idKataloga, [FromBody] VideoIgra igra)
         {
             var katalog = await Context.Katalozi.FindAsync(idKataloga);
-            var studio = await Context.Studios.FindAsync(idStudia);
+            var studio = await Context.Studios.FindAsync(igra.StudioID);
+
             igra.Katalog = katalog;
-            igra.Studio = studio;
 
             if (Context.VideoIgre.Any(temp => temp.Naziv == igra.Naziv && temp.Tip == igra.Tip && (temp.X != igra.X || temp.Y != igra.Y)))
             {
@@ -68,20 +71,39 @@ namespace API.Controllers
 
         }
 
-        [Route("UpdateKolicine/{idKataloga}")]
-        [HttpPost]
-        public async Task AzuriranjeKolicine(int idKataloga, [FromBody] VideoIgra igra)
+        //U(pdate) za video igru
+        [Route("UpdateKolicine")]
+        [HttpPut]
+        public async Task AzuriranjeKolicine([FromBody] VideoIgra igra)
         {
-            var katalog = await Context.Katalozi.FindAsync(idKataloga);
+            var temp =  Context.VideoIgre.Where(p => p.X == igra.X && p.Y == igra.Y).FirstOrDefault();
+            temp.KolicinaNaStanju = igra.KolicinaNaStanju;
+
+            Context.Update<VideoIgra>(temp);
+            await Context.SaveChangesAsync();
+            
         }
 
-        [Route("BrisanjeVideoIgre/{idKataloga}")]
-        [HttpPost]
-        public async Task BrisanjeVideoIgre(int idKataloga, [FromBody] VideoIgra igra)
+        //D(elete) za video igru
+        [Route("BrisanjeVideoIgre")]
+        [HttpDelete]
+        public async Task<IActionResult> BrisanjeVideoIgre([FromBody] VideoIgra igra)
         {
-            var katalog = await Context.Katalozi.FindAsync(idKataloga);
+            var temp =  Context.VideoIgre.Where(p => p.X == igra.X && p.Y == igra.Y).FirstOrDefault();
+            var studio = await Context.Studios.FindAsync(igra.StudioID);
+
+            if (temp != null )
+            {
+                studio.BrojIgaraNaStanju--;
+                Context.Remove<VideoIgra>(temp);
+                await Context.SaveChangesAsync();
+                return Ok();
+            }
+            else
+                return StatusCode(406);
         }
 
+        //R(ead) za studio
         [Route("PreuzimanjeStudia")]
         [HttpGet]
         public async Task<List<Studio>> PreuzimanjeStudia()

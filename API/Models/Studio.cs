@@ -18,6 +18,7 @@ namespace API.Models
         public string Sediste { get; set; }
         
         [Column("GodinaOsnivanja")]
+        [MaxLength(4)]
         public int GodinaOsnivanja { get; set; }
 
         [Column("BrojIgara")]
@@ -26,6 +27,6 @@ namespace API.Models
         [Column("BrojIgaraNaStanju")]
         public int BrojIgaraNaStanju { get; set; }
 
-        public Katalog Katalog { get; set; }
+        //public Katalog Katalog { get; set; }
     }
 }

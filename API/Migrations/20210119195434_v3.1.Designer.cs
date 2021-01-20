@@ -4,14 +4,16 @@ using API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(GameShopContext))]
-    partial class GameShopContextModelSnapshot : ModelSnapshot
+    [Migration("20210119195434_v3.1")]
+    partial class v31
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,7 +64,6 @@ namespace API.Migrations
                         .HasColumnName("BrojIgaraNaStanju");
 
                     b.Property<int>("GodinaOsnivanja")
-                        .HasMaxLength(4)
                         .HasColumnType("int")
                         .HasColumnName("GodinaOsnivanja");
 
@@ -105,8 +106,7 @@ namespace API.Migrations
                         .HasColumnName("NaStanju");
 
                     b.Property<string>("Naziv")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("Naziv");
 
                     b.Property<int?>("StudioID")

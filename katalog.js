@@ -2,7 +2,8 @@ import { VideoIgra } from "./videoigra.js"
 import { Studio } from "./studio.js"
 
 export class Katalog {
-    constructor (nazivProd, n, m) {
+    constructor (id, nazivProd, n, m) {
+        this.id = id;
         this.gameShop = nazivProd;
         this.n = n;
         this.m = m;
@@ -93,14 +94,6 @@ export class Katalog {
             forma.appendChild(rbDiv);
         })
 
-
-        //podaci iz baze
-        const stud = new Studio("Naughty Dog", "LA", 7, 1989);
-        this.dodavanjeStudia(stud);
-
-        const stud2 = new Studio("Santa Monica Studios", "Santa Monica", 4, 1999);
-        this.dodavanjeStudia(stud2);
-
         let studioDiv = document.createElement("div");
         let studioSelect = document.createElement("select");
         labela = document.createElement("label");
@@ -115,12 +108,18 @@ export class Katalog {
         s.value = null;
         studioSelect.appendChild(s);
 
-        for (let i = 0; i < this.studios.length; i++) {
-            s = document.createElement("option");
-            s.innerHTML = this.studios[i].ime;
-            s.value = this.studios[i].ime; 
-            studioSelect.appendChild(s);
-        }
+        fetch("https://localhost:5001/GameShop/PreuzimanjeStudia").then(p => {
+                p.json().then(data => {
+                    data.forEach(studio => {
+                        const stud = new Studio(studio.id, studio.naziv, studio.sediste, studio.brojIgara, studio.godinaOsnivanja); 
+                        this.dodavanjeStudia(stud);
+                        s = document.createElement("option");
+                        s.innerHTML = stud.ime;
+                        s.value = stud.ime; 
+                        studioSelect.appendChild(s);
+                    });
+                }); 
+            });
 
         forma.appendChild(studioDiv);
 
@@ -128,6 +127,40 @@ export class Katalog {
         buttonStudio.className = "button";
         buttonStudio.innerHTML = "Prikazi informacije o studiu";
         forma.appendChild(buttonStudio);
+
+        //R(ead) za studio
+        buttonStudio.onclick = (ev) => {
+            const studioSelected = studioSelect.value;
+            let studio = this.studios.find(st => st.ime == studioSelected);
+
+            /*if (studio == null)
+            {
+                alert("Nije izabran studio!");
+            }
+            else
+            {
+                let temp = "Studio: " + `${studio.ime}` + "\nSediste: " + `${studio.sediste}`
+                         + "\nOsnovan: " + `${studio.godinaOsnivanja}` + "\nBroj izdatih igara: "+ `${studio.brojIgara}` 
+                         + "\nTrenutni broj igara u katalogu: " + `${studio.brojIgaraNaStanju}`;
+                alert(temp);
+            }*/
+ 
+            fetch("https://localhost:5001/GameShop/PreuzimanjeStudia").then(p => {
+                p.json().then(data => {
+                    data.forEach(studio => {
+                        if (studio.naziv == studioSelect.value)
+                        {
+                            let temp = "Studio: " + `${studio.naziv}` + "\nSediste: " + `${studio.sediste}`
+                                     + "\nOsnovan: " + `${studio.godinaOsnivanja}` + "\nBroj izdatih igara: "+ `${studio.brojIgara}` 
+                                     + "\nTrenutni broj igara u katalogu: " + `${studio.brojIgaraNaStanju}`;
+                
+                            alert(temp);
+                        }
+                    });
+                }); 
+            });
+
+        }
 
         labela = document.createElement("label");
         labela.innerHTML = "Datum izdavanja: ";
@@ -183,24 +216,6 @@ export class Katalog {
         button.innerHTML = "Dodaj video igru u katalog";
         forma.appendChild(button);
 
-        //R(ead) za studio
-        buttonStudio.onclick = (ev) => {
-            const studioSelected = studioSelect.value;
-            let studio = this.studios.find(st => st.ime == studioSelected);
-
-            if (studio == null)
-            {
-                alert("Nije izabran studio!");
-            }
-            else
-            {
-                let temp = "Studio: " + `${studio.ime}` + "\nSediste: " + `${studio.sediste}`
-                         + "\nOsnovan: " + `${studio.godinaOsnivanja}` + "\nBroj izdatih igara: "+ `${studio.brojIgara}` 
-                         + "\nTrenutni broj igara u katalogu: " + `${studio.brojIgaraUKatalogu}`;
-                alert(temp);
-            }
-        }
-
         //C(reate) za video igru
         button.onclick = (ev) => {
             const naziv = this.kontejner.querySelector(".naziv").value;
@@ -241,7 +256,7 @@ export class Katalog {
                 let i = parseInt(vrsta.value);
                 let j = parseInt(kolona.value);
 
-                let completlySame = this.videoIgre.find(igra => igra.naziv == naziv && igra.kolicinaNaStanju == kolicina && igra.x == i && igra.y == j);
+                /*let completlySame = this.videoIgre.find(igra => igra.naziv == naziv && igra.kolicinaNaStanju == kolicina && igra.x == i && igra.y == j);
                 let differentPosition = this.videoIgre.find(igra => igra.naziv == naziv && (igra.x != i || igra.y != j));
                 let differentQuantity = this.videoIgre.find(igra => igra.naziv == naziv && igra.kolicinaNaStanju != kolicina && igra.x == i && igra.y == j);
 
@@ -261,7 +276,43 @@ export class Katalog {
                 {
                     this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.value, i, j, datum, brDiskova, studio);
                     studio.updateStudio(1);
-                }
+                }*/
+                fetch("https://localhost:5001/GameShop/DodavanjeVideoIgre/" + this.id + "/" + studio.id, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "naziv": naziv,
+                        "datumIzdavanja": datum,
+                        "brojDiskova": brDiskova,
+                        "tip": tip.innerHTML,
+                        "kolicinaNaStanju": kolicina,
+                        "x": i,
+                        "y": j
+                    })
+                }).then(p => {
+                    if (p.ok) {
+                        this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.innerHTML, tip.value, i, j, datum, brDiskova, studio);
+                        studio.updateStudio(1);
+                    }
+                    else if (p.status == 400) {
+                        const postojiVec = {x: 0, y: 0 };
+                        p.json().then(q => {
+                            postojiVec.x == q.x;
+                            postojiVec.y = q.y;
+                            alert("Igra je vec u katalogu na poziciji (" + (postojiVec.x + 1) + ", " + (postojiVec.y + 1) + ")");
+                        });
+                    }
+                    else if (p.status == 409) {
+                        alert("Ukoliko zelite da izmenite kolicinu na stanju, kliknite na \"Azuriraj kolicinu\" dugme!\nZa ostale izmene izbrisite igru iz kataloga i dodajte ispocetka.");
+                    }
+                    else {
+                        alert("Greska prilikom dodavanja igre");
+                    }
+                }).catch(p => {
+                    alert("Greska prilikom dodavanja igre");
+                });
             }
         }
 
@@ -310,7 +361,7 @@ export class Katalog {
             kontejnerIgre.appendChild(vrsta);
 
             for (let j = 0; j< this.m; j++) {
-                igra = new VideoIgra("", "", null, "", "", i, j);
+                igra = new VideoIgra("", "", null, "", "", "", i, j);
                 this.dodavanjeVideoIgre(igra);
                 igra.crtanjeVideoIgre(vrsta);
             }

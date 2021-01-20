@@ -34,14 +34,38 @@ namespace API.Controllers
             await Context.SaveChangesAsync();
         }
 
-        [Route("DodavanjeVideoIgre/{idKataloga}")]
+        [Route("DodavanjeVideoIgre/{idKataloga}/{idStudia}")]
         [HttpPost]
-        public async Task UpisivanjeVideoIgre(int idKataloga, [FromBody] VideoIgra igra)
+        public async Task<IActionResult> UpisivanjeVideoIgre(int idKataloga, int idStudia, [FromBody] VideoIgra igra)
         {
             var katalog = await Context.Katalozi.FindAsync(idKataloga);
+            var studio = await Context.Studios.FindAsync(idStudia);
             igra.Katalog = katalog;
-            Context.VideoIgre.Add(igra);
-            await Context.SaveChangesAsync();
+            igra.Studio = studio;
+
+            if (Context.VideoIgre.Any(temp => temp.Naziv == igra.Naziv && temp.Tip == igra.Tip && (temp.X != igra.X || temp.Y != igra.Y)))
+            {
+                var xy = Context.VideoIgre.Where(p => p.Tip == igra.Tip).FirstOrDefault();
+                return BadRequest(new { X = xy?.X, Y = xy?.Y });
+            }
+
+            var temp = Context.VideoIgre.Where(p => p.X == igra.X && p.Y == igra.Y).FirstOrDefault();
+
+            if (temp != null)
+            {
+                if (temp.KolicinaNaStanju != igra.KolicinaNaStanju)
+                    return StatusCode(409);
+                else
+                    return StatusCode(406);
+            }
+            else
+            {
+                studio.BrojIgaraNaStanju++;
+                Context.VideoIgre.Add(igra);
+                await Context.SaveChangesAsync();
+                return Ok();
+            }
+
         }
 
         [Route("UpdateKolicine/{idKataloga}")]
@@ -63,13 +87,6 @@ namespace API.Controllers
         public async Task<List<Studio>> PreuzimanjeStudia()
         {
             return await Context.Studios.ToListAsync();
-        }
-
-        [Route("UpdateStudio/{idStudia")]
-        [HttpPost]
-        public async Task UpdateStudio(int idStudia)
-        {
-            var katalog = await Context.Studios.FindAsync(idStudia);
         }
     }
 }

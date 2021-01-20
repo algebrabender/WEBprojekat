@@ -26,14 +26,18 @@ Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 - Dodati buttons za ostale crud operacije (bez read), samo attached na formi
 - Kreiran WebAPI i Modeli
 
-# Node 19.1.2021.
+# Note 19.1.2021.
 - Implementirane ostale CRUD operacije
 - Implementirana validacija svih podatak u js-u 
 - Male izmene u stilu
 - Dodate pojedine metode za podrsku CRUD operacijama
 
+# Note 20.1.2021.
+- Implementirane metode za podrsku CRUD operacijama (bice)
+- Dodati atributi za validaciju
+- Kreirana SQL skriptna za studios i podaci ubaceni u bazu
+
 # TODO
 - Opis projekta
-- Smestanje svih podataka u bazu (sa atributima za validaciju?)
-- SQL skripta za studios i ubaciti ih u bazu
 - Metode za podrsku CRUD operacijama
+- Promeniti DateTime za datum samo na godinu

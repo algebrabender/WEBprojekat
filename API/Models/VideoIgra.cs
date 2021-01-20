@@ -13,7 +13,7 @@ namespace API.Models
         public int ID { get; set; }
 
         [Column("Naziv")]
-        
+        [MaxLength(255)]
         public string Naziv { get; set; }
         
         [Column("Datum")]

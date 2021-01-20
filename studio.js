@@ -1,5 +1,6 @@
 export class Studio {
-    constructor (ime, sediste, brojIgara, godinaOsnivanja) {
+    constructor (id, ime, sediste, brojIgara, godinaOsnivanja) {
+        this.id = id;
         this.ime = ime;
         this.sediste = sediste;
         this.brojIgara = brojIgara;
@@ -10,8 +11,8 @@ export class Studio {
     updateStudio(plusminus)
     {
         if(plusminus == 1)
-            this.brojIgaraUKatalogu++;
+            this.brojIgaraNaStanju++;
         else
-            this.brojIgaraUKatalogu--;
+            this.brojIgaraNaStanju--;
     }
 }

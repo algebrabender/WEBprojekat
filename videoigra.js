@@ -1,12 +1,10 @@
-
-import { Studio } from "./studio.js"
-
 export class VideoIgra {
-    constructor(naziv, datumIzdavanja, brojDiskova, tip, studio, i, j) {
+    constructor(naziv, datumIzdavanja, brojDiskova, tip, boja, studio, i, j) {
         this.naziv = naziv;
         this.datumIzdavanja = datumIzdavanja;
         this.brojDiskova = brojDiskova;
         this.tip = tip;
+        this.boja = boja;
         this.kolicinaNaStanju = 0;
         this.studio = studio;
         this.x = i;
@@ -15,10 +13,10 @@ export class VideoIgra {
     }
 
     bojaPolja() {
-        if (!this.tip)
+        if (!this.boja)
             return "#726a95";
         else
-            return this.tip;
+            return this.boja;
     }
 
     crtanjeVideoIgre(host) {
@@ -36,9 +34,11 @@ export class VideoIgra {
         + "<br />Datum izadavanja: " + this.datumIzdavanja;
     }
 
-    updateVideoIgre(naziv, kolicina, tip, x, y, datum, brojDiskova, stud) {
+    updateVideoIgre(naziv, kolicina, tip, boja, x, y, datum, brojDiskova, stud) {
         this.naziv = naziv;
         this.tip = tip;
+        this.boja = boja;
+        console.log(boja);
         this.kolicinaNaStanju = kolicina;
         this.x = x;
         this.y = y;

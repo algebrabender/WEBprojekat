@@ -275,7 +275,6 @@ export class Katalog {
                     if (p.ok) {
                         this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.value, i, j, datum, brDiskova, studio);
                         studio.updateStudio(1);
-                        naziv.value = "";
                     }
                     else if (p.status == 400) {
                         const postojiVec = {x: 0, y: 0 };
@@ -291,9 +290,9 @@ export class Katalog {
                     else {
                         alert("Greska prilikom dodavanja igre");
                     }
-                }).catch(p => {
+                })/*.catch(p => {
                     alert("Greska prilikom dodavanja igre");
-                });
+                })*/;
             }
         }
 

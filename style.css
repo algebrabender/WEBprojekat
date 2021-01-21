@@ -1,7 +1,7 @@
 .kontejner 
 {
     display: flex;
-    height: 700px;
+    height: 750px;
 }
 
 h2 
@@ -14,7 +14,7 @@ h2
 .forma 
 {
     display: flex;
-    height: 680px;
+    height: 720px;
     flex-direction: column;
     flex-basis: 300px;
     margin: 5px;
@@ -47,7 +47,7 @@ body
     flex-direction: column;
     flex-grow: 1;
     flex-basis: 500px;
-    height: 695px;
+    height: 720px;
     font-size: 24px;
 }
 
@@ -56,6 +56,7 @@ body
     display: flex;
     flex-direction: row;
     flex-grow: 1;
+    flex-shrink: 1;
 }
 
 .videoIgra

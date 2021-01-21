@@ -41,6 +41,10 @@ Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 - Kreirana SQL skriptna za studios i podaci ubaceni u bazu
 - Izmenjeni katalog.js i main.js sa pozivima odgovarajucih fetch-ova
 
+# Note 21.1.2021.
+- Male izmene u stilu
+- Updated CORS
+
 # TODO
 - Opis projekta
 - Dodavanje drugog kataloga (potencijalno)

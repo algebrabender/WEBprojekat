@@ -255,7 +255,6 @@ export class Katalog {
             {
                 let i = parseInt(vrsta.value);
                 let j = parseInt(kolona.value);
-                console.log(tip.innerHTML);
 
                 fetch("https://localhost:5001/GameShop/DodavanjeVideoIgre/" + this.id, {
                     method: "POST",
@@ -276,6 +275,7 @@ export class Katalog {
                     if (p.ok) {
                         this.videoIgre[i * this.m + j].updateVideoIgre(naziv, kolicina, tip.value, i, j, datum, brDiskova, studio);
                         studio.updateStudio(1);
+                        naziv.value = "";
                     }
                     else if (p.status == 400) {
                         const postojiVec = {x: 0, y: 0 };
@@ -342,7 +342,7 @@ export class Katalog {
             let j = parseInt(kolona.value);
 
             let temp = this.videoIgre.find(igra => igra.x == i && igra.y == j);
-            console.log(temp);
+
             fetch("https://localhost:5001/GameShop/BrisanjeVideoIgre", {
                 method: "DELETE",
                 headers: {

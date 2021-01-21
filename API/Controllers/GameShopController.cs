@@ -27,15 +27,6 @@ namespace API.Controllers
             return await Context.Katalozi.Include(p => p.VideoIgre).ToListAsync();
         }
 
-        //C(reate) za katalog
-        [Route("DodavanjeKataloga")]
-        [HttpPost]
-        public async Task DodavanjeKataloga([FromBody] Katalog katalog)
-        {
-            Context.Katalozi.Add(katalog);
-            await Context.SaveChangesAsync();
-        }
-
         //C(reate) za video igru
         [Route("DodavanjeVideoIgre/{idKataloga}")]
         [HttpPost]

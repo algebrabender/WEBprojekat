@@ -45,5 +45,7 @@ Ovaj repo ce sadrzati kod projekta kao i sam opis projekta.
 - Male izmene u stilu
 - Updated CORS
 
-# TODO
+# Node 24.1.2021.
 - Opis projekta
+- Male izmene u stilu i obrisani komentari
+- Opis projekta i SQL skripta upload-ovani na github
